@@ -27,10 +27,10 @@ P.MethodRates       = struct('passive',0.045,'fan',0.07,'towel',0.13,'immersion'
 P.TcFloor           = 37.0;      %Core cannot be cooled below this in C
 P.HtBaserate        = struct('passive',0.022,'fan',0.028,'towel',0.033,'immersion',0.060); %Half-time cooling baseline in C/min
 P.CoolGrad          = 0.19;      %Extra cooling per C above 37 over a 15-min half-time
-P.CoolSinkGain      = 0.8;       %Afterdrop reservoir charge per unit of cooling
-P.CoolSinkTau       = 8;         %Afterdrop bleed-back time constant in min
-P.CoolSinkMax       = 0.22;      %Afterdrop reservoir cap in C (Brown et al. 2024)
-P.HtSinkFrac        = 0.5;       %Fraction of the cap banked at half-time and pre-extra-time
+P.CoolSinkGain      = 0.8;       %Afterdrop reservoir charge per unit of cooling. This sets how much of the cooling applied during a break is stored for later rather than spent immediately.
+P.CoolSinkTau       = 8;         %Afterdrop bleed-back time constant in min. This sets how fast the stored cold empties back into the core once play resumes.
+P.CoolSinkMax       = 0.22;      %Afterdrop reservoir cap in C (Brown et al. 2024). This is the most extra core cooling the reservoir can ever deliver, about 0.22 C.
+P.HtSinkFrac        = 0.5;       %Multiplier on the afterdrop banked at half-time and pre-extra-time, set below 1 because it is less effective than during an in-play break.
 
 % Match structure
 P.AddedTime         = 5;         %Added time per half in min (2022 to 2026 timekeeping)
@@ -47,7 +47,7 @@ P.SubTimes          = [60 70 80];%Second-half substitution times in clock min
 P.SubOld            = 30;        %Old-law time to leave the field in s
 P.SubNew            = 10;        %New-law time to leave the field in s (IFAB 2026)
 P.ExtraTime         = true;      %Include extra time
-P.LagTau            = 0;         %Metabolic response lag in s (0 for instant)
+P.LagTau            = 0;         %Metabolic response lag in s, applied to the change in heat production when the ball goes in and out of play (0 for instant)
 
 % Drinking
 P.DrinkRate         = 1.5;       %Ad-libitum drinking rate during non-play time in L/h (Kurdak et al. 2010)
