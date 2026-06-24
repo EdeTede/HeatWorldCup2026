@@ -1,7 +1,31 @@
 function WorldCupHeatModel
 % Two-node football core-temperature model for the 2026 World Cup.
-% Run with no arguments. Prints the tables and writes the four figures
-% next to this file. Edit only the variables in the block below.
+%
+% This is a simple heat-balance model of a single outfield player. It tracks core
+% and skin temperature second by second across a match and compares the old laws
+% with the new hurry-up laws and the FIFA cooling break, to show how keeping the
+% ball in play longer in the heat raises core temperature.
+%
+% The model is built on a two-node (core and skin) scheme of the Gagge type. Heat
+% production, ball-in-play fractions and stoppage lengths come from match analysis
+% (Siegle and Lames 2012, Mohr et al. 2012), and the cooling break is calibrated
+% to the only controlled trial of the policy (Brown et al. 2024). Peak core
+% temperatures are checked against measured football values (Mohr 2012, Ozgunen
+% 2010, Brown 2024), with an RMSE near 0.13 C.
+%
+% The defaults describe a heat-acclimatised player of average size in steady shade
+% conditions. Body size, weather, cooling method and the other inputs can all be
+% changed in the editable block below, so most of the player and condition
+% assumptions are adjustable rather than fixed.
+%
+% Football is a versatile game that presents in many forms, so this simulation is
+% an abbreviation of it. It runs a regular play-and-stop pattern and does not model
+% goals, injuries, VAR reviews, cards, or a team running the clock down to protect
+% a lead, and a knockout decided on penalties sits outside it. The numbers show the
+% direction and rough size of the effect, not exact temperatures for any one player.
+%
+% Run with no arguments. Prints the tables and writes the four figures next to
+% this file. Edit only the variables in the block below.
 
 %% ============================ EDITABLE VARIABLES ============================
 % Player
